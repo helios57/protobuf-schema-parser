@@ -1,0 +1,22 @@
+asyncapi: 2.0.0
+info:
+  title: Example importing a proto file that cannot be resolved
+  version: '1.0.0'
+channels:
+  mychannel:
+    publish:
+      message:
+        $ref: '#/components/messages/testMessage'
+
+components:
+  messages:
+    testMessage:
+      schemaFormat: 'application/vnd.google.protobuf;version=3'
+      payload: |
+        syntax = "proto3";
+
+        import "some/unknown/dependency.proto";
+
+        message Importer {
+            optional string name = 1;
+        }

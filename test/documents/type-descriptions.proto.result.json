@@ -1,0 +1,341 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "Example covering the description of every field type kind",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "mychannel": {
+      "publish": {
+        "message": {
+          "schemaFormat": "application/vnd.google.protobuf;version=3",
+          "payload": {
+            "title": "Train",
+            "type": "object",
+            "required": [
+              "wagons"
+            ],
+            "properties": {
+              "leading_wagon": {
+                "title": "Wagon",
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647,
+                    "x-primitive": "int32",
+                    "description": "Running number of the wagon."
+                  },
+                  "kind": {
+                    "title": "WagonKind",
+                    "type": "string",
+                    "enum": [
+                      "WAGON_KIND_UNSPECIFIED",
+                      "FREIGHT",
+                      "PASSENGER"
+                    ],
+                    "x-enum-mapping": {
+                      "WAGON_KIND_UNSPECIFIED": 0,
+                      "FREIGHT": 1,
+                      "PASSENGER": 2
+                    },
+                    "x-type": "WagonKind",
+                    "description": "Kind of this wagon."
+                  }
+                },
+                "description": "The leading wagon.",
+                "x-type": "Wagon",
+                "x-type-description": "A single wagon of the train"
+              },
+              "uncommented_wagon": {
+                "title": "Wagon",
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647,
+                    "x-primitive": "int32",
+                    "description": "Running number of the wagon."
+                  },
+                  "kind": {
+                    "title": "WagonKind",
+                    "type": "string",
+                    "enum": [
+                      "WAGON_KIND_UNSPECIFIED",
+                      "FREIGHT",
+                      "PASSENGER"
+                    ],
+                    "x-enum-mapping": {
+                      "WAGON_KIND_UNSPECIFIED": 0,
+                      "FREIGHT": 1,
+                      "PASSENGER": 2
+                    },
+                    "x-type": "WagonKind",
+                    "description": "Kind of this wagon."
+                  }
+                },
+                "description": "A single wagon of the train",
+                "x-type": "Wagon"
+              },
+              "wagons": {
+                "type": "array",
+                "items": {
+                  "title": "Wagon",
+                  "type": "object",
+                  "properties": {
+                    "number": {
+                      "type": "integer",
+                      "format": "int32",
+                      "minimum": -2147483648,
+                      "maximum": 2147483647,
+                      "x-primitive": "int32",
+                      "description": "Running number of the wagon."
+                    },
+                    "kind": {
+                      "title": "WagonKind",
+                      "type": "string",
+                      "enum": [
+                        "WAGON_KIND_UNSPECIFIED",
+                        "FREIGHT",
+                        "PASSENGER"
+                      ],
+                      "x-enum-mapping": {
+                        "WAGON_KIND_UNSPECIFIED": 0,
+                        "FREIGHT": 1,
+                        "PASSENGER": 2
+                      },
+                      "x-type": "WagonKind",
+                      "description": "Kind of this wagon."
+                    }
+                  },
+                  "description": "All wagons in order.",
+                  "x-type": "Wagon",
+                  "x-type-description": "A single wagon of the train"
+                },
+                "description": "All wagons in order."
+              },
+              "kind": {
+                "title": "WagonKind",
+                "type": "string",
+                "enum": [
+                  "WAGON_KIND_UNSPECIFIED",
+                  "FREIGHT",
+                  "PASSENGER"
+                ],
+                "x-enum-mapping": {
+                  "WAGON_KIND_UNSPECIFIED": 0,
+                  "FREIGHT": 1,
+                  "PASSENGER": 2
+                },
+                "x-type": "WagonKind",
+                "description": "Kind of the whole train."
+              },
+              "composed_at": {
+                "title": "Timestamp",
+                "type": "object",
+                "required": [
+                  "seconds",
+                  "nanos"
+                ],
+                "properties": {
+                  "seconds": {
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991,
+                    "x-primitive": "int64"
+                  },
+                  "nanos": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647,
+                    "x-primitive": "int32"
+                  }
+                },
+                "x-type": "google.protobuf.Timestamp",
+                "description": "Moment the train was composed."
+              },
+              "note": {
+                "type": "string",
+                "x-primitive": "string",
+                "description": "Free text."
+              }
+            },
+            "description": "The train that is composed of wagons"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "testMessage": {
+        "schemaFormat": "application/vnd.google.protobuf;version=3",
+        "payload": {
+          "title": "Train",
+          "type": "object",
+          "required": [
+            "wagons"
+          ],
+          "properties": {
+            "leading_wagon": {
+              "title": "Wagon",
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "format": "int32",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647,
+                  "x-primitive": "int32",
+                  "description": "Running number of the wagon."
+                },
+                "kind": {
+                  "title": "WagonKind",
+                  "type": "string",
+                  "enum": [
+                    "WAGON_KIND_UNSPECIFIED",
+                    "FREIGHT",
+                    "PASSENGER"
+                  ],
+                  "x-enum-mapping": {
+                    "WAGON_KIND_UNSPECIFIED": 0,
+                    "FREIGHT": 1,
+                    "PASSENGER": 2
+                  },
+                  "x-type": "WagonKind",
+                  "description": "Kind of this wagon."
+                }
+              },
+              "description": "The leading wagon.",
+              "x-type": "Wagon",
+              "x-type-description": "A single wagon of the train"
+            },
+            "uncommented_wagon": {
+              "title": "Wagon",
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "format": "int32",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647,
+                  "x-primitive": "int32",
+                  "description": "Running number of the wagon."
+                },
+                "kind": {
+                  "title": "WagonKind",
+                  "type": "string",
+                  "enum": [
+                    "WAGON_KIND_UNSPECIFIED",
+                    "FREIGHT",
+                    "PASSENGER"
+                  ],
+                  "x-enum-mapping": {
+                    "WAGON_KIND_UNSPECIFIED": 0,
+                    "FREIGHT": 1,
+                    "PASSENGER": 2
+                  },
+                  "x-type": "WagonKind",
+                  "description": "Kind of this wagon."
+                }
+              },
+              "description": "A single wagon of the train",
+              "x-type": "Wagon"
+            },
+            "wagons": {
+              "type": "array",
+              "items": {
+                "title": "Wagon",
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647,
+                    "x-primitive": "int32",
+                    "description": "Running number of the wagon."
+                  },
+                  "kind": {
+                    "title": "WagonKind",
+                    "type": "string",
+                    "enum": [
+                      "WAGON_KIND_UNSPECIFIED",
+                      "FREIGHT",
+                      "PASSENGER"
+                    ],
+                    "x-enum-mapping": {
+                      "WAGON_KIND_UNSPECIFIED": 0,
+                      "FREIGHT": 1,
+                      "PASSENGER": 2
+                    },
+                    "x-type": "WagonKind",
+                    "description": "Kind of this wagon."
+                  }
+                },
+                "description": "All wagons in order.",
+                "x-type": "Wagon",
+                "x-type-description": "A single wagon of the train"
+              },
+              "description": "All wagons in order."
+            },
+            "kind": {
+              "title": "WagonKind",
+              "type": "string",
+              "enum": [
+                "WAGON_KIND_UNSPECIFIED",
+                "FREIGHT",
+                "PASSENGER"
+              ],
+              "x-enum-mapping": {
+                "WAGON_KIND_UNSPECIFIED": 0,
+                "FREIGHT": 1,
+                "PASSENGER": 2
+              },
+              "x-type": "WagonKind",
+              "description": "Kind of the whole train."
+            },
+            "composed_at": {
+              "title": "Timestamp",
+              "type": "object",
+              "required": [
+                "seconds",
+                "nanos"
+              ],
+              "properties": {
+                "seconds": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991,
+                  "x-primitive": "int64"
+                },
+                "nanos": {
+                  "type": "integer",
+                  "format": "int32",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647,
+                  "x-primitive": "int32"
+                }
+              },
+              "x-type": "google.protobuf.Timestamp",
+              "description": "Moment the train was composed."
+            },
+            "note": {
+              "type": "string",
+              "x-primitive": "string",
+              "description": "Free text."
+            }
+          },
+          "description": "The train that is composed of wagons"
+        }
+      }
+    }
+  }
+}

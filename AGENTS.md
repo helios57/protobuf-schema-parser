@@ -100,7 +100,8 @@ walks the tree. Core rules:
   comment to `x-type-description`, so consumers documenting the type itself never read a field
   comment.
 - **Enum** -> `{ title, type: 'string', enum: [names], 'x-enum-mapping': { name: number } }`; a field
-  referencing an enum also gets `x-type`.
+  referencing an enum also gets `x-type`. A comment on the `enum` itself is dropped — unlike a
+  message, an enum contributes no `description`, so a field comment is the only source.
 - **`repeated` field** -> `{ type: 'array', items: <field schema> }`. Supports `@MinItems`/`@MaxItems`
   and validator-framework `min_items`/`max_items`/`unique`/`items`.
 - **`oneof` with 2+ members** -> a property named after the `oneof` holding `{ oneOf: [...] }`; each
@@ -129,7 +130,9 @@ breaking change.
 
 ## 6. Testing
 
-- Tests live in `test/parser.spec.ts` and run via `npm test` (`jest --coverage`).
+- Tests run via `npm test` (`jest --coverage`) and live in three specs: `test/parser.spec.ts`
+  (whole AsyncAPI documents through a real parser), `test/index.spec.ts` (the exported schema-parser
+  contract) and `test/pathUtils.spec.ts` (import path helpers).
 - Each case parses an AsyncAPI YAML fixture from `test/documents/*.yaml` through a real
   `@asyncapi/parser` `Parser` with `ProtoBuffSchemaParser` registered, then deep-equals the result
   against the matching `*.result.json` (with `x-parser-*` internals stripped).
@@ -140,6 +143,9 @@ breaking change.
   parsing fails and produces diagnostics. Add negative cases for new error conditions.
 - Cover both proto2 and proto3 where relevant, and keep the `google` well-known-type and validation
   fixtures green when touching import handling or the validator mappers.
+- A fixture deep-equal alone is an opaque regression net. Where a fixture exists to pin a specific
+  rule, also assert that rule explicitly in the spec so the intent survives a fixture regeneration —
+  `type-descriptions.proto.yaml` and `shared-message-type.proto.yaml` do this for descriptions.
 
 ## 7. Project-specific patterns & invariants
 

@@ -1,0 +1,54 @@
+asyncapi: 2.0.0
+info:
+  title: Example covering the description of every field type kind
+  version: '1.0.0'
+channels:
+  mychannel:
+    publish:
+      message:
+        $ref: '#/components/messages/testMessage'
+
+components:
+  messages:
+    testMessage:
+      schemaFormat: 'application/vnd.google.protobuf;version=3'
+      payload: |
+        syntax = "proto3";
+
+        import "google/protobuf/timestamp.proto";
+
+        // Kind of the wagon
+        enum WagonKind {
+            WAGON_KIND_UNSPECIFIED = 0;
+            FREIGHT = 1;
+            PASSENGER = 2;
+        }
+
+        // A single wagon of the train
+        message Wagon {
+            // Running number of the wagon.
+            optional int32 number = 1;
+
+            // Kind of this wagon.
+            optional WagonKind kind = 2;
+        }
+
+        // The train that is composed of wagons
+        message Train {
+            // The leading wagon.
+            optional Wagon leading_wagon = 1;
+
+            optional Wagon uncommented_wagon = 2;
+
+            // All wagons in order.
+            repeated Wagon wagons = 3;
+
+            // Kind of the whole train.
+            optional WagonKind kind = 4;
+
+            // Moment the train was composed.
+            optional google.protobuf.Timestamp composed_at = 5;
+
+            // Free text.
+            optional string note = 6;
+        }

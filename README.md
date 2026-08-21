@@ -32,8 +32,8 @@ equivalent AsyncAPI schema.
 > `application/vnd.google.protobuf;version=2` while providing a proto3 schema (or vice versa) does
 > not by itself cause an error.
 >
-> Version `>= 2.0.0` of this package requires `@asyncapi/parser` `>= 2.0.0`; the `3.x` line targets
-> `@asyncapi/parser` `>= 3.6.0`.
+> Version `>= 2.0.0` of this package requires `@asyncapi/parser` `>= 2.0.0`; the `3.x` line depends
+> on `@asyncapi/parser` `^3.6.2`.
 
 <!-- toc -->
 
@@ -159,7 +159,7 @@ The main mapping rules:
 | `message` | `{ "title": <name>, "type": "object", "properties": { ... } }`, plus a `required` list |
 | Scalar field (e.g. `int32`, `string`) | `type` + `format` from the [scalar type map](#scalar-type-formats), plus `x-primitive` (and `minimum`/`maximum` for numeric types) |
 | Message-typed field | The referenced message compiled inline, plus `x-type` set to the Protobuf type name |
-| `enum` | `{ "type": "string", "enum": [<names>], "x-enum-mapping": { <name>: <number> } }` |
+| `enum` | `{ "title": <name>, "type": "string", "enum": [<names>], "x-enum-mapping": { <name>: <number> } }`. The comment on the `enum` itself is not carried over; only a comment on the field becomes `description`. |
 | `repeated` field | `{ "type": "array", "items": <field schema> }` |
 | `oneof` with 2+ members | A property named after the `oneof` holding `{ "oneOf": [ ... ] }`; each variant carries `x-oneof-item` with the field name |
 | Field / message comment | `description` (with `@`-annotations stripped out). A field comment replaces the comment of the message it references, which moves to `x-type-description` |
@@ -271,7 +271,12 @@ parsing.
 ## Development
 
 This project is written in TypeScript and builds both an ES module (`esm/`) and a CommonJS (`cjs/`)
-output. Tests use [Jest](https://jestjs.io/) against snapshot-style fixtures in `test/documents`.
+output. Tests use [Jest](https://jestjs.io/): `test/parser.spec.ts` drives whole AsyncAPI documents
+against snapshot-style fixtures in `test/documents`, while `test/index.spec.ts` and
+`test/pathUtils.spec.ts` unit-test the parser contract and the import path helpers.
+
+To refresh the fixtures after an intended output change, flip `UPDATE_RESULTS` in
+`test/parser.spec.ts` to `true` for a single run, review the resulting diff, and flip it back.
 
 ```sh
 npm install          # install dependencies
@@ -293,6 +298,9 @@ Source layout:
 | `src/protoc-gen-validate.ts` | Maps `(validate.rules)` options to JSON Schema validators. |
 | `src/protovalidate.ts` | Maps `(buf.validate.field)` options to JSON Schema validators. |
 | `test/documents/*.yaml` | AsyncAPI input fixtures; `*.result.json` are the expected parsed outputs. |
+| `test/parser.spec.ts` | End-to-end tests through a real `@asyncapi/parser` instance. |
+| `test/index.spec.ts` | Tests of the exported schema-parser contract. |
+| `test/pathUtils.spec.ts` | Tests of `Path.isAbsolute` / `normalize` / `resolve`. |
 
 ## Contributing
 

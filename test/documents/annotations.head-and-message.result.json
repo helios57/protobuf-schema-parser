@@ -1,0 +1,59 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "Example using the head @Option and the message @RootNode annotation",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "mychannel": {
+      "publish": {
+        "message": {
+          "schemaFormat": "application/vnd.google.protobuf;version=3",
+          "payload": {
+            "title": "AnnotatedRoot",
+            "type": "object",
+            "properties": {
+              "counter": {
+                "type": "integer",
+                "format": "int32",
+                "x-primitive": "int32",
+                "description": "Counter without generated limits."
+              },
+              "label": {
+                "type": "string",
+                "x-primitive": "string",
+                "description": "The unreferenced sibling stays a separate root candidate."
+              }
+            },
+            "description": "The message the document is about."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "testMessage": {
+        "schemaFormat": "application/vnd.google.protobuf;version=3",
+        "payload": {
+          "title": "AnnotatedRoot",
+          "type": "object",
+          "properties": {
+            "counter": {
+              "type": "integer",
+              "format": "int32",
+              "x-primitive": "int32",
+              "description": "Counter without generated limits."
+            },
+            "label": {
+              "type": "string",
+              "x-primitive": "string",
+              "description": "The unreferenced sibling stays a separate root candidate."
+            }
+          },
+          "description": "The message the document is about."
+        }
+      }
+    }
+  }
+}

@@ -258,6 +258,89 @@ describe('parse()', function () {
     expect(properties.passed_positions.items['x-type-description']).toEqual('Data type for a ZnvOccupancy');
   });
 
+  it('only a message type should carry its own description over into x-type-description', async function () {
+    const document = await parseSpec('./documents/type-descriptions.proto.yaml');
+
+    if (UPDATE_RESULTS) {
+      writeResults(
+        document,
+        './documents/type-descriptions.proto.result.json'
+      );
+    }
+
+    expect(
+      stripParserExtraInfos(document?.json())
+    ).toEqual(
+      readResultFile('./documents/type-descriptions.proto.result.json')
+    );
+
+    const properties = document?.json().components.messages.testMessage.payload.properties;
+
+    // A message type keeps its own comment next to the field comment that shadows it.
+    expect(properties.leading_wagon.description).toEqual('The leading wagon.');
+    expect(properties.leading_wagon['x-type-description']).toEqual('A single wagon of the train');
+
+    // Without a field comment there is nothing to shadow, so the message comment stays the description.
+    expect(properties.uncommented_wagon.description).toEqual('A single wagon of the train');
+    expect(properties.uncommented_wagon['x-type-description']).toBeUndefined();
+
+    // A repeated field describes the array, its items describe the message type.
+    expect(properties.wagons.description).toEqual('All wagons in order.');
+    expect(properties.wagons['x-type-description']).toBeUndefined();
+    expect(properties.wagons.items['x-type-description']).toEqual('A single wagon of the train');
+
+    // An enum, a well-known type and a scalar have no message comment to keep.
+    expect(properties.kind.description).toEqual('Kind of the whole train.');
+    expect(properties.kind['x-type-description']).toBeUndefined();
+    expect(properties.composed_at.description).toEqual('Moment the train was composed.');
+    expect(properties.composed_at['x-type-description']).toBeUndefined();
+    expect(properties.note.description).toEqual('Free text.');
+    expect(properties.note['x-type-description']).toBeUndefined();
+  });
+
+  it('the head @Option primitiveTypesWithLimits and the message @RootNode should be honoured', async function () {
+    const document = await parseSpec('./documents/annotations.head-and-message.yaml');
+
+    if (UPDATE_RESULTS) {
+      writeResults(
+        document,
+        './documents/annotations.head-and-message.result.json'
+      );
+    }
+
+    expect(
+      stripParserExtraInfos(document?.json())
+    ).toEqual(
+      readResultFile('./documents/annotations.head-and-message.result.json')
+    );
+
+    const payload = document?.json().components.messages.testMessage.payload;
+
+    expect(payload.title).toEqual('AnnotatedRoot');
+    expect(payload.description).toEqual('The message the document is about.');
+    expect(payload.properties.counter.minimum).toBeUndefined();
+    expect(payload.properties.counter.maximum).toBeUndefined();
+    expect(payload.properties.counter.format).toEqual('int32');
+  });
+
+  it('an import that cannot be resolved should fail', async function () {
+    const {document, diagnostics} = await coreParser.parse(
+      fs.readFileSync(path.resolve(__dirname, './documents/invalid.unsupported_import.yaml'), 'utf8')
+    );
+
+    expect(document).toBeUndefined();
+    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(0);
+  });
+
+  it('a field type that is not defined should fail', async function () {
+    const {document, diagnostics} = await coreParser.parse(
+      fs.readFileSync(path.resolve(__dirname, './documents/invalid.unresolvable_field_type.yaml'), 'utf8')
+    );
+
+    expect(document).toBeUndefined();
+    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(0);
+  });
+
   function filterDiagnostics(diagnostics: Diagnostic[], code: string) {
     return diagnostics.filter((d) => d.code === code);
   }

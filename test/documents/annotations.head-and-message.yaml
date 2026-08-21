@@ -1,0 +1,36 @@
+asyncapi: 2.0.0
+info:
+  title: Example using the head @Option and the message @RootNode annotation
+  version: '1.0.0'
+channels:
+  mychannel:
+    publish:
+      message:
+        $ref: '#/components/messages/testMessage'
+
+components:
+  messages:
+    testMessage:
+      schemaFormat: 'application/vnd.google.protobuf;version=3'
+      payload: |
+        // @Option primitiveTypesWithLimits false
+        // @Option unknownFlag true
+        // @Option unknownName someValue
+        syntax = "proto3";
+
+        // A message that is not referenced by any other message.
+        message UnreferencedSibling {
+            optional string name = 1;
+        }
+
+        /*
+         * The message the document is about.
+         * @RootNode
+         */
+        message AnnotatedRoot {
+            // Counter without generated limits.
+            optional int32 counter = 1;
+
+            // The unreferenced sibling stays a separate root candidate.
+            optional string label = 2;
+        }

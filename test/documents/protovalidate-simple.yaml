@@ -107,6 +107,12 @@ components:
         
           // x must be at most 15 bytes long
           string se = 16 [(buf.validate.field).string.max_bytes = 15];
+
+          // x must be exactly 8 bytes long
+          string sez = 116 [(buf.validate.field).string.len_bytes = 8];
+
+          // x must be at least 4 bytes long
+          string sey = 117 [(buf.validate.field).string.min_bytes = 4];
         
           // x must be between 128 and 1024 bytes long
           string sf = 17 [(buf.validate.field).string = {min_bytes: 128, max_bytes: 1024}];

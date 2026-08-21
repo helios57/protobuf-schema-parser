@@ -156,6 +156,8 @@
                   "sc",
                   "sd",
                   "se",
+                  "sez",
+                  "sey",
                   "sf",
                   "sg",
                   "sh",
@@ -210,6 +212,19 @@
                     "x-primitive": "string",
                     "maxLength": 15,
                     "description": "x must be at most 15 bytes long"
+                  },
+                  "sez": {
+                    "type": "string",
+                    "x-primitive": "string",
+                    "minLength": 8,
+                    "maxLength": 8,
+                    "description": "x must be exactly 8 bytes long"
+                  },
+                  "sey": {
+                    "type": "string",
+                    "x-primitive": "string",
+                    "minLength": 4,
+                    "description": "x must be at least 4 bytes long"
                   },
                   "sf": {
                     "type": "string",
@@ -267,15 +282,15 @@
                     "oneOf": [
                       {
                         "const": "foo",
-                        "x-parser-schema-id": "<anonymous-schema-35>"
+                        "x-parser-schema-id": "<anonymous-schema-37>"
                       },
                       {
                         "const": "bar",
-                        "x-parser-schema-id": "<anonymous-schema-36>"
+                        "x-parser-schema-id": "<anonymous-schema-38>"
                       },
                       {
                         "const": "baz",
-                        "x-parser-schema-id": "<anonymous-schema-37>"
+                        "x-parser-schema-id": "<anonymous-schema-39>"
                       }
                     ],
                     "description": "x must be either \"foo\", \"bar\", or \"baz\""
@@ -287,11 +302,11 @@
                       "oneOf": [
                         {
                           "const": "fizz",
-                          "x-parser-schema-id": "<anonymous-schema-40>"
+                          "x-parser-schema-id": "<anonymous-schema-42>"
                         },
                         {
                           "const": "buzz",
-                          "x-parser-schema-id": "<anonymous-schema-41>"
+                          "x-parser-schema-id": "<anonymous-schema-43>"
                         }
                       ]
                     },
@@ -309,15 +324,15 @@
                     "anyOf": [
                       {
                         "format": "hostname",
-                        "x-parser-schema-id": "<anonymous-schema-44>"
+                        "x-parser-schema-id": "<anonymous-schema-46>"
                       },
                       {
                         "format": "ipv4",
-                        "x-parser-schema-id": "<anonymous-schema-45>"
+                        "x-parser-schema-id": "<anonymous-schema-47>"
                       },
                       {
                         "format": "ipv6",
-                        "x-parser-schema-id": "<anonymous-schema-46>"
+                        "x-parser-schema-id": "<anonymous-schema-48>"
                       }
                     ],
                     "description": "x must be a valid address (IP or Hostname)."
@@ -334,11 +349,11 @@
                     "anyOf": [
                       {
                         "format": "ipv4",
-                        "x-parser-schema-id": "<anonymous-schema-49>"
+                        "x-parser-schema-id": "<anonymous-schema-51>"
                       },
                       {
                         "format": "ipv6",
-                        "x-parser-schema-id": "<anonymous-schema-50>"
+                        "x-parser-schema-id": "<anonymous-schema-52>"
                       }
                     ],
                     "description": "x must be a valid IP address (either v4 or v6)"
@@ -480,15 +495,15 @@
                     "oneOf": [
                       {
                         "const": "foo",
-                        "x-parser-schema-id": "<anonymous-schema-69>"
+                        "x-parser-schema-id": "<anonymous-schema-71>"
                       },
                       {
                         "const": "bar",
-                        "x-parser-schema-id": "<anonymous-schema-70>"
+                        "x-parser-schema-id": "<anonymous-schema-72>"
                       },
                       {
                         "const": "baz",
-                        "x-parser-schema-id": "<anonymous-schema-71>"
+                        "x-parser-schema-id": "<anonymous-schema-73>"
                       }
                     ],
                     "description": "x must be either \"foo\", \"bar\", or \"baz\""
@@ -501,11 +516,11 @@
                       "oneOf": [
                         {
                           "const": "fizz",
-                          "x-parser-schema-id": "<anonymous-schema-74>"
+                          "x-parser-schema-id": "<anonymous-schema-76>"
                         },
                         {
                           "const": "buzz",
-                          "x-parser-schema-id": "<anonymous-schema-75>"
+                          "x-parser-schema-id": "<anonymous-schema-77>"
                         }
                       ]
                     },
@@ -518,15 +533,15 @@
                     "oneOf": [
                       {
                         "const": "foo",
-                        "x-parser-schema-id": "<anonymous-schema-77>"
+                        "x-parser-schema-id": "<anonymous-schema-79>"
                       },
                       {
                         "const": "bar",
-                        "x-parser-schema-id": "<anonymous-schema-78>"
+                        "x-parser-schema-id": "<anonymous-schema-80>"
                       },
                       {
                         "const": "baz",
-                        "x-parser-schema-id": "<anonymous-schema-79>"
+                        "x-parser-schema-id": "<anonymous-schema-81>"
                       }
                     ]
                   },
@@ -537,11 +552,11 @@
                     "anyOf": [
                       {
                         "format": "ipv4",
-                        "x-parser-schema-id": "<anonymous-schema-81>"
+                        "x-parser-schema-id": "<anonymous-schema-83>"
                       },
                       {
                         "format": "ipv6",
-                        "x-parser-schema-id": "<anonymous-schema-82>"
+                        "x-parser-schema-id": "<anonymous-schema-84>"
                       }
                     ],
                     "description": "x must be a valid IP address (either v4 or v6) in byte format"
@@ -1109,6 +1124,8 @@
                 "sc",
                 "sd",
                 "se",
+                "sez",
+                "sey",
                 "sf",
                 "sg",
                 "sh",
@@ -1163,6 +1180,19 @@
                   "x-primitive": "string",
                   "maxLength": 15,
                   "description": "x must be at most 15 bytes long"
+                },
+                "sez": {
+                  "type": "string",
+                  "x-primitive": "string",
+                  "minLength": 8,
+                  "maxLength": 8,
+                  "description": "x must be exactly 8 bytes long"
+                },
+                "sey": {
+                  "type": "string",
+                  "x-primitive": "string",
+                  "minLength": 4,
+                  "description": "x must be at least 4 bytes long"
                 },
                 "sf": {
                   "type": "string",
@@ -1220,15 +1250,15 @@
                   "oneOf": [
                     {
                       "const": "foo",
-                      "x-parser-schema-id": "<anonymous-schema-35>"
+                      "x-parser-schema-id": "<anonymous-schema-37>"
                     },
                     {
                       "const": "bar",
-                      "x-parser-schema-id": "<anonymous-schema-36>"
+                      "x-parser-schema-id": "<anonymous-schema-38>"
                     },
                     {
                       "const": "baz",
-                      "x-parser-schema-id": "<anonymous-schema-37>"
+                      "x-parser-schema-id": "<anonymous-schema-39>"
                     }
                   ],
                   "description": "x must be either \"foo\", \"bar\", or \"baz\""
@@ -1240,11 +1270,11 @@
                     "oneOf": [
                       {
                         "const": "fizz",
-                        "x-parser-schema-id": "<anonymous-schema-40>"
+                        "x-parser-schema-id": "<anonymous-schema-42>"
                       },
                       {
                         "const": "buzz",
-                        "x-parser-schema-id": "<anonymous-schema-41>"
+                        "x-parser-schema-id": "<anonymous-schema-43>"
                       }
                     ]
                   },
@@ -1262,15 +1292,15 @@
                   "anyOf": [
                     {
                       "format": "hostname",
-                      "x-parser-schema-id": "<anonymous-schema-44>"
+                      "x-parser-schema-id": "<anonymous-schema-46>"
                     },
                     {
                       "format": "ipv4",
-                      "x-parser-schema-id": "<anonymous-schema-45>"
+                      "x-parser-schema-id": "<anonymous-schema-47>"
                     },
                     {
                       "format": "ipv6",
-                      "x-parser-schema-id": "<anonymous-schema-46>"
+                      "x-parser-schema-id": "<anonymous-schema-48>"
                     }
                   ],
                   "description": "x must be a valid address (IP or Hostname)."
@@ -1287,11 +1317,11 @@
                   "anyOf": [
                     {
                       "format": "ipv4",
-                      "x-parser-schema-id": "<anonymous-schema-49>"
+                      "x-parser-schema-id": "<anonymous-schema-51>"
                     },
                     {
                       "format": "ipv6",
-                      "x-parser-schema-id": "<anonymous-schema-50>"
+                      "x-parser-schema-id": "<anonymous-schema-52>"
                     }
                   ],
                   "description": "x must be a valid IP address (either v4 or v6)"
@@ -1433,15 +1463,15 @@
                   "oneOf": [
                     {
                       "const": "foo",
-                      "x-parser-schema-id": "<anonymous-schema-69>"
+                      "x-parser-schema-id": "<anonymous-schema-71>"
                     },
                     {
                       "const": "bar",
-                      "x-parser-schema-id": "<anonymous-schema-70>"
+                      "x-parser-schema-id": "<anonymous-schema-72>"
                     },
                     {
                       "const": "baz",
-                      "x-parser-schema-id": "<anonymous-schema-71>"
+                      "x-parser-schema-id": "<anonymous-schema-73>"
                     }
                   ],
                   "description": "x must be either \"foo\", \"bar\", or \"baz\""
@@ -1454,11 +1484,11 @@
                     "oneOf": [
                       {
                         "const": "fizz",
-                        "x-parser-schema-id": "<anonymous-schema-74>"
+                        "x-parser-schema-id": "<anonymous-schema-76>"
                       },
                       {
                         "const": "buzz",
-                        "x-parser-schema-id": "<anonymous-schema-75>"
+                        "x-parser-schema-id": "<anonymous-schema-77>"
                       }
                     ]
                   },
@@ -1471,15 +1501,15 @@
                   "oneOf": [
                     {
                       "const": "foo",
-                      "x-parser-schema-id": "<anonymous-schema-77>"
+                      "x-parser-schema-id": "<anonymous-schema-79>"
                     },
                     {
                       "const": "bar",
-                      "x-parser-schema-id": "<anonymous-schema-78>"
+                      "x-parser-schema-id": "<anonymous-schema-80>"
                     },
                     {
                       "const": "baz",
-                      "x-parser-schema-id": "<anonymous-schema-79>"
+                      "x-parser-schema-id": "<anonymous-schema-81>"
                     }
                   ]
                 },
@@ -1490,11 +1520,11 @@
                   "anyOf": [
                     {
                       "format": "ipv4",
-                      "x-parser-schema-id": "<anonymous-schema-81>"
+                      "x-parser-schema-id": "<anonymous-schema-83>"
                     },
                     {
                       "format": "ipv6",
-                      "x-parser-schema-id": "<anonymous-schema-82>"
+                      "x-parser-schema-id": "<anonymous-schema-84>"
                     }
                   ],
                   "description": "x must be a valid IP address (either v4 or v6) in byte format"
