@@ -63,6 +63,7 @@ describe('Path.resolve()', function () {
   });
 
   it('should skip normalization when the caller declares the paths normalized', function () {
-    expect(Path.resolve('a/b/origin.proto', 'include.proto', true)).toBe('a/b/include.proto');
+    expect(Path.resolve('a/b/origin.proto', 'C:\\abs\\include.proto')).toBe('C:/abs/include.proto');
+    expect(Path.resolve('a/b/origin.proto', 'C:\\abs\\include.proto', true)).toBe('C:\\abs\\include.proto');
   });
 });

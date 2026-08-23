@@ -36,7 +36,9 @@ src/
   protoc-gen-validate.ts   (validate.rules) option mapping
   protovalidate.ts         (buf.validate.field) option mapping + shared validator logic
 test/
-  parser.spec.ts           Test suite
+  parser.spec.ts           Whole AsyncAPI documents through a real @asyncapi/parser
+  index.spec.ts            The exported schema-parser contract
+  pathUtils.spec.ts        Import path resolution helpers
   documents/*.yaml         AsyncAPI input fixtures
   documents/*.result.json  Expected parsed output for each fixture
 esm/  cjs/                 Generated build output (do not edit by hand; git-ignored)

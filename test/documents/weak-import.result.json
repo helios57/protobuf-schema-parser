@@ -1,0 +1,47 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "Example weakly importing a proto file that cannot be resolved",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "mychannel": {
+      "publish": {
+        "message": {
+          "schemaFormat": "application/vnd.google.protobuf;version=3",
+          "payload": {
+            "title": "WeakImporter",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-primitive": "string",
+                "description": "The name of the importer."
+              }
+            },
+            "description": "A message that does not use anything of its weak import"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "testMessage": {
+        "schemaFormat": "application/vnd.google.protobuf;version=3",
+        "payload": {
+          "title": "WeakImporter",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "x-primitive": "string",
+              "description": "The name of the importer."
+            }
+          },
+          "description": "A message that does not use anything of its weak import"
+        }
+      }
+    }
+  }
+}

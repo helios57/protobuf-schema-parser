@@ -1,4 +1,4 @@
-import {AsyncAPIDocumentInterface, Diagnostic, Parser,} from '@asyncapi/parser';
+import {AsyncAPIDocumentInterface, Diagnostic, DiagnosticSeverity, Parser,} from '@asyncapi/parser';
 import * as fs from 'fs';
 import * as path from 'path';
 import {ProtoBuffSchemaParser} from '../src';
@@ -162,8 +162,8 @@ describe('parse()', function () {
 
     expect(document).toBeUndefined();
 
-    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(
-      0
+    expect(schemaErrorMessages(diagnostics)).toContain(
+      'Found more than one root proto messages: Point, Line'
     );
   });
 
@@ -174,8 +174,8 @@ describe('parse()', function () {
 
     expect(document).toBeUndefined();
 
-    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(
-      0
+    expect(schemaErrorMessages(diagnostics)).toContain(
+      'Not found a root proto messages'
     );
   });
 
@@ -329,7 +329,28 @@ describe('parse()', function () {
     );
 
     expect(document).toBeUndefined();
-    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(0);
+    expect(schemaErrorMessages(diagnostics)).toContain(
+      'Imports are currently not implemented. Can not load: some/unknown/root defined in as some/unknown/dependency.proto in root'
+    );
+  });
+
+  it('an import declared weak should be tolerated when it cannot be resolved', async function () {
+    const document = await parseSpec('./documents/weak-import.yaml');
+
+    if (UPDATE_RESULTS) {
+      writeResults(document, './documents/weak-import.result.json');
+    }
+
+    expect(
+      stripParserExtraInfos(document?.json())
+    ).toEqual(
+      readResultFile('./documents/weak-import.result.json')
+    );
+
+    const payload = document?.json().components.messages.testMessage.payload;
+
+    expect(payload.title).toEqual('WeakImporter');
+    expect(payload.properties.name.description).toEqual('The name of the importer.');
   });
 
   it('a field type that is not defined should fail', async function () {
@@ -338,10 +359,18 @@ describe('parse()', function () {
     );
 
     expect(document).toBeUndefined();
-    expect(filterDiagnostics(diagnostics, 'asyncapi2-schemas')).not.toHaveLength(0);
+    expect(schemaErrorMessages(diagnostics)).toContain(
+      'no such Type or Enum \'MissingType\' in Type .Referencing'
+    );
   });
 
   function filterDiagnostics(diagnostics: Diagnostic[], code: string) {
     return diagnostics.filter((d) => d.code === code);
+  }
+
+  function schemaErrorMessages(diagnostics: Diagnostic[]) {
+    return filterDiagnostics(diagnostics, 'asyncapi2-schemas')
+      .filter((d) => d.severity === DiagnosticSeverity.Error)
+      .map((d) => d.message);
   }
 });
